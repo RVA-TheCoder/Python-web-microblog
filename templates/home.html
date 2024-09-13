@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microblog</title>
+
+    <!-- /static/css/styles.css.
+         The slash static end point is not defined in app.py file
+
+         It is the default end point for static assets and it matches the name of the 
+         static folder inside the 4_MicroBlog project folder.
+
+         So we must call our static folder static and then Flask will automatically open it up 
+         and make anything inside it available to request via the browser just by preceding it 
+         with slash static (/static). -->
+    
+    <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+
+    <header class="navbar">
+
+        <div class="navbar__brand"> 
+            <img class="navbar__logo" src="/static/Microblog Logo.svg" alt="Microblog logo" />Microblog
+        </div>
+        
+        <ul class="navbar__navigation">
+            <li class="navbar__navigation-item"> <a href="#" class="navbar__link">Recent</a></li>
+            <li class="navbar__navigation-item"> <a href="#" class="navbar__link">Calendar</a></li>
+        </ul>
+
+    </header>
+
+    <main class="main">
+        <section>
+            <h3>Add a new entry</h3>
+
+            <!-- when we type something in the textarea element and submit it 
+                using the submit button.That's going to make a POST request 
+                to the form action attribute -->
+
+            <!-- action="/" means the form will submit the data on the same page that it is at. -->
+                
+            <form class="form" action="/" method="POST">
+                
+                <p class="form__input">
+                    <label class="form__label" for="entry">Entry content:</label>
+                    <textarea class="form__textarea" name="content" id="entry" aria-label="Entry contents"></textarea>
+                </p>
+                
+                <button class="form__submit" type="submit">Add entry</button>
+
+            </form>
+
+        </section>
+
+
+        <section>
+            <h1>Recent posts</h1>
+
+            {% for entry in entries %}
+                <article class="entry">
+                    <div>
+                        <h3 class="entry__title">{{ entry[0] | truncate(30, true)}}</h3>
+                        <time class="entry__date" datetime={{entry[1]}}>• {{ entry[2] }}</time>
+                    </div>
+                    <p class="entry__content">
+                        {{ entry[0] }}
+                    </p>
+                </article>
+            {% endfor %}
+        </section>
+
+
+    </main>
+
+    <footer class="footer">
+
+        <div class="footer__content">
+
+            <section class="left">
+                <a class="footer__item" href="#">Made by RVA</a>
+                <a class="footer__item" href="#">Check out my other projects</a>
+            </section>
+
+            <section class="right">
+                <div class="footer__column">
+                    <a class="footer__item" href="#">Recent</a>
+                    <a class="footer__item" href="#">Calendar</a>
+
+                </div>
+
+                <div class="footer__column">
+                    <a class="footer__item" href="#">About</a>
+                    <a class="footer__item" href="#">How this was made</a>
+                </div>
+
+            </section>
+
+        </div>
+
+    </footer>
+
+
+</body>
+</html>
+
+
+
+
